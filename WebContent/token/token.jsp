@@ -1,19 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: Tang
-  Date: 2016/12/28
-  Time: 16:05
+  Date: 2017/1/3
+  Time: 15:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>LoginPage</title>
+    <title>Token</title>
 </head>
 <body>
-<form action="index.jsp" method="post">
-    name:<input type="text" name="name">
-    <input type="submit" value="提交">
-</form>
+ <h4>您已经提交表单信息！</h4>
 </body>
 </html>
