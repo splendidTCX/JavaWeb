@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+
+
+    <description>MyTag core library</description>
+
+    <display-name>MyTag core</display-name>
+
+    <tlib-version>1.0</tlib-version>
+    <!--标签抬头-->
+    <short-name>mytag</short-name>
+    <!--标签ID,用于区分标签的唯一标识-->
+    <uri>http://mytag.core.com/core</uri>
+
+
+    <!--将标签属性value中的字母变为大写的标签-->
+    <tag>
+        <name>UpperCase</name>
+        <tag-class>com.tcx.simpleTag.TestSimpleTag</tag-class>
+        <body-content>empty</body-content>
+        <!-- body-content节点属性 empty  /  scriptless / tagdependent
+
+        1.empty表示该标签没有标签体：<mytag:UpperCase value="abcdefg"/>
+
+        2.scriptless表示该标签有标签体，而且此标签的标签体支持EL表达式，但是不支持<%%>java 代码嵌入的形式。
+
+        3.tagdependent 该属性值也是支持标签体的，但是标签体中不支持EL表达式 比如你在标签体中写了一个EL表达式，标签处理类将标签体直接输出，页面上
+        会直接展示${xxxxxx}的样式。
+
+        -->
+
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <!--ForEach-->
+    <tag>
+        <name>foreach</name>
+        <tag-class>com.tcx.simpleTag.ForEachTag</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>var</name>
+            <rtexprvalue>true</rtexprvalue>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>items</name>
+            <rtexprvalue>true</rtexprvalue>
+            <required>true</required>
+        </attribute>
+    </tag>
+
+    <!-- Choose When  Otherwise-->
+
+    <tag>
+        <name>choose</name>
+        <tag-class>com.tcx.simpleTag.ChooseTag</tag-class>
+        <body-content>scriptless</body-content>
+
+    </tag>
+    
+    <tag>
+        <name>when</name>
+        <tag-class>com.tcx.simpleTag.WhenTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>test</name>
+            <rtexprvalue>true</rtexprvalue>
+            <required>true</required>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>otherwise</name>
+        <tag-class>com.tcx.simpleTag.OtherWiseTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+</taglib>
