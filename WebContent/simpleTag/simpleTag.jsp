@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@taglib prefix="mytag" uri="http://mytag.core.com/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   SimpleTag相关知识的案例
 --%>
@@ -57,6 +58,10 @@
     </mytag:otherwise>
 </mytag:choose>
 
-
+<br><br>
+${fn:length(param.name)}
+<br><br>
+测试自定义的EL自定义函数：<br>
+${mytag:concat(param.name1,param.name2)}
 </body>
 </html>

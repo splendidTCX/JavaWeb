@@ -55,7 +55,7 @@
         <url-pattern>/validateColorServlet</url-pattern>
     </servlet-mapping>
 
-
+    <!--验证码图片servlet-->
     <servlet>
         <servlet-name>checkCodeServlet</servlet-name>
         <servlet-class>com.tcx.session.checkCode.CheckCodeServlet</servlet-class>
@@ -66,4 +66,78 @@
         <url-pattern>/checkCodeServlet</url-pattern>
     </servlet-mapping>
 
+    <!--filter小例子，用来验证username和password-->
+
+    <filter>
+        <filter-name>usernameFilter</filter-name>
+        <filter-class>com.tcx.filter.UsernameFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>usernameFilter</filter-name>
+        <url-pattern>/filter/hello.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>passwordFilter</filter-name>
+        <filter-class>com.tcx.filter.PasswordFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>passwordFilter</filter-name>
+        <url-pattern>/filter/hello.jsp</url-pattern>
+    </filter-mapping>
+
+    <!--filter 禁用浏览器缓存的浏览器-->
+    <filter>
+        <filter-name>noCacheFilter</filter-name>
+        <filter-class>com.tcx.filter.NoCacheFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>noCacheFilter</filter-name>
+        <url-pattern>/filter/cache/*</url-pattern>
+    </filter-mapping>
+
+    <!--filter 字符编码过滤，将页面字符编码设置为UTF-8-->
+
+    <context-param>
+        <param-name>Encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>com.tcx.filter.EncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <!--判断用户是否登录的过滤器，若用户登录则可以访问某些特定的页面，
+    若用户未登录访问特殊页面时就跳转到登录页面-->
+    <context-param>
+        <param-name>userSessionKey</param-name>
+        <param-value>USERSESSIONKEY</param-value>
+    </context-param>
+    <!--重定向页面-->
+    <context-param>
+        <param-name>redirectPage</param-name>
+        <param-value>/filter/login/login.jsp</param-value>
+    </context-param>
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>com.tcx.filter.LoginFilter</filter-class>
+
+        <!--不进行拦截的路径-->
+        <init-param>
+            <param-name>uncheckUrls</param-name>
+            <param-value>/filter/login/login.jsp,/filter/login/doLogin.jsp,/filter/login/a.jsp,/filter/login/list.jsp</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/filter/login/*</url-pattern>
+    </filter-mapping>
 </web-app>
