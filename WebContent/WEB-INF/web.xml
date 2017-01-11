@@ -132,7 +132,8 @@
         <!--不进行拦截的路径-->
         <init-param>
             <param-name>uncheckUrls</param-name>
-            <param-value>/filter/login/login.jsp,/filter/login/doLogin.jsp,/filter/login/a.jsp,/filter/login/list.jsp</param-value>
+            <param-value>/filter/login/login.jsp,/filter/login/doLogin.jsp,/filter/login/a.jsp,/filter/login/list.jsp
+            </param-value>
         </init-param>
     </filter>
 
@@ -140,4 +141,75 @@
         <filter-name>loginFilter</filter-name>
         <url-pattern>/filter/login/*</url-pattern>
     </filter-mapping>
+
+
+    <!--权限管理部分配置的filter与servlet-->
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>com.tcx.authority_manage.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/loginServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <filter>
+        <init-param>
+            <param-name>nocheckUrls</param-name>
+            <param-value>
+                /authority_manage/articleList.jsp,/authority_manage/authoritiesManage.jsp,/authority_manage/login.jsp,/authority_manage/noAu.jsp,/authority_manage/logout.jsp
+            </param-value>
+        </init-param>
+        <filter-name>authorityFilter</filter-name>
+        <filter-class>com.tcx.authority_manage.AuthorityFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>authorityFilter</filter-name>
+        <url-pattern>/authority_manage/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>authorityManageServlet</servlet-name>
+        <servlet-class>com.tcx.authority_manage.AuthorityManageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>authorityManageServlet</servlet-name>
+        <url-pattern>/authorityManageServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <!--来测试filer的使用顺序以及配置filter的dispatcher属性相关内容-->
+    <filter>
+        <filter-name>firstFilter</filter-name>
+        <filter-class>com.tcx.filter.FirstFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>firstFilter</filter-name>
+        <url-pattern>/filter/test.jsp</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>secondFilter</filter-name>
+        <filter-class>com.tcx.filter.SecondFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>secondFilter</filter-name>
+        <url-pattern>/filter/test.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+
+    <error-page>
+        <exception-type>java.lang.ArithmeticException</exception-type>
+        <location>/filter/test.jsp</location>
+    </error-page>
 </web-app>
